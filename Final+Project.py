@@ -1,8 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[3]:
-
 
 import numpy as np
 import pandas as pd
@@ -45,11 +40,6 @@ for fil in os.listdir(directory):
 
 filepaths
 
-
-# In[3]:
-
-
-
  
 def extract_text_from_pdf(pdf_path):
     resource_manager = PDFResourceManager()
@@ -86,21 +76,9 @@ def extract_from_folder(filepaths):
     return documents
 
 
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
 
 df = pd.DataFrame({'filename': filenames, 'content': content })
 df
-
-
-# In[ ]:
-
 
 # Get the price data files. These files contain the over/under reaction labels that we are using to train
 price_filenames = [];
@@ -116,10 +94,6 @@ for fil in os.listdir(directory):
         price_filenames.append(filename)
         
 price_filenames[0].split(' ')[0]
-
-
-# In[16]:
-
 
 # compile the prices into a single dateframe
 mergeddf = pd.DataFrame()
@@ -137,30 +111,16 @@ for p in range(len(price_filepaths)):
     merge = df.merge(dfprices, how='inner', on='filename')
     merge['label'] = merge['label'].apply(lambda x: 0 if x == False else 1)
     mergeddf = mergeddf.append(merge)
-
-
-# In[ ]:
-
-
-
-
-
-# In[17]:
-
-
+    
 def pdf_to_csv(x):
     x = x[:-3]
     return x + 'txt'
 
 
-# In[2]:
 
 
 X = mergeddf['content'].values
 y = np.array(mergeddf['label'].tolist())
-
-
-# In[24]:
 
 
 
@@ -199,11 +159,6 @@ for i in range(3):
                     precision += sklearn.metrics.precision_score(y_test,pred,average='weighted')/5
 
                 print(i,j,k,l,accuracy,recall,precision)
-
-    
-
-
-# In[62]:
 
 
 # Term Frequency vs TF-IDF tests for multiple classifiers including AdaBoost, Random Forests, 
@@ -280,9 +235,6 @@ for l in range(1):
     print(i,j,k,l,accuracy,accuracy_2)
 
 
-# In[63]:
-
-
 # plt.plot(alphas,accs,'r-o', label='TF')
 # plt.plot(alphas,accs2,'b-o', label='TF-IDF')
 # plt.title('Accuracies for Alpha: TF vs. TF-IDF')
@@ -292,14 +244,7 @@ accuracy,accuracy_2,accuracy_svm,accuracy_svm_2,accuracy_log,accuracy_log_2
     
 # plt.plot(n,pageRankScores26,'b-o',label='pageRankScores26')
 
-
-# In[ ]:
-
-
 plt.plot(alphas,accs2,'b-o', label='TF-IDF')
-
-
-# In[4]:
 
 
 # Some other TF IDF Tests, SVMs
@@ -329,10 +274,3 @@ for i in range(4):
     
 #                 print(i,j,k,l,accuracy,recall,precision)
                 
-
-
-# In[ ]:
-
-
-# The results of the project can be seen in the Final Report. 
-
